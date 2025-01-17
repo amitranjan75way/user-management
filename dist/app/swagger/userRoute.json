@@ -1,0 +1,219 @@
+{
+    "/api/users": {
+        "post": {
+            "summary": "New user registraion for ADMIN",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateUser"
+                        },
+                        "example": {
+                            "name": "John Doe",
+                            "email": "johndoe@example.com",
+                            "password": "password123",
+                            "role": "USER"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "User created successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "id": "63f21c84e7a51093c507d202",
+                                    "name": "John Doe",
+                                    "email": "johndoe@example.com",
+                                    "role": "USER",
+                                    "active": true
+                                },
+                                "message": "User created successfully"
+                            }
+                        }
+                    }
+                },
+                "409": {
+                    "description": "User already exists",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 409,
+                                "message": "User already exists",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/api/users/register": {
+        "post": {
+            "summary": "Register a new user by ADMIN",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RegisterUser"
+                        },
+                        "example": {
+                            "name": "Jane Doe",
+                            "email": "janedoe@example.com",
+                            "password": "mypassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "User registered successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "id": "63f21c84e7a51093c507d202",
+                                    "name": "Jane Doe",
+                                    "email": "janedoe@example.com",
+                                    "role": "USER"
+                                },
+                                "message": "User registered successfully"
+                            }
+                        }
+                    }
+                },
+                "409": {
+                    "description": "User already exists",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 409,
+                                "message": "User already exists",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/api/users/login": {
+        "post": {
+            "summary": "Login for ADMIN",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/LoginUser"
+                        },
+                        "example": {
+                            "email": "janedoe@example.com",
+                            "password": "mypassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "User logged in successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "user": {
+                                        "id": "63f21c84e7a51093c507d202",
+                                        "name": "Jane Doe",
+                                        "email": "janedoe@example.com",
+                                        "role": "USER"
+                                    },
+                                    "accessToken": "jwt-token"
+                                },
+                                "message": "User logged in successfully"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Invalid credentials",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 401,
+                                "message": "Invalid credentials",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/api/users/reset-password": {
+        "post": {
+            "summary": "Reset user password via received eamil",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ResetPassword"
+                        },
+                        "example": {
+                            "resetLink": "http://localhost:3000/reset-password?token=some-jwt-token",
+                            "newPassword": "newSecurePassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Password reset successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {},
+                                "message": "Password reset successfully"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/api/users/logout": {
+        "post": {
+            "summary": "Logout a user",
+            "tags": ["Users"],
+            "responses": {
+                "200": {
+                    "description": "User logged out successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {},
+                                "message": "User logged out successfully"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
